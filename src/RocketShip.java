@@ -15,6 +15,9 @@ public RocketShip(int x, int y, int width, int height) {
 	    loadImage ("rocket.png");
 	}
 }
+public void update() {
+	
+}
 public void draw(Graphics g) {
     if (gotImage) {
   		g.drawImage(image, x, y, width, height, null);
@@ -24,16 +27,16 @@ public void draw(Graphics g) {
   	}
 }
 public void up() {
-	y-=speed;
+	y-=speed; super.update();
 }
 public void down() {
-	y+=speed;
+	y+=speed; super.update();
 }
 public void right() {
-	x+=speed;
+	x+=speed; super.update();
 }
 public void left() {
-	x-=speed;
+	x-=speed; super.update();
 }
 void loadImage(String imageFile) {
     if (needImage) {

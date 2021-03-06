@@ -9,6 +9,7 @@ public class ObjectManager implements ActionListener{
 	ArrayList <Projectile> ps = new ArrayList <Projectile>();
 	ArrayList <Alien> as = new ArrayList <Alien>();
 	Random rand = new Random();
+	int score = 0;
 	public ObjectManager (RocketShip RS) {
 		this.RS = RS;
 		}
@@ -68,13 +69,18 @@ public class ObjectManager implements ActionListener{
 					if (as.get(j).collisionBox.intersects(ps.get(i).collisionBox)) {
 						ps.get(i).isActive = false;
 						as.get(j).isActive = false;
+						score += 1;
+						
 					}
-					if (ps.get(i).collisionBox.intersects(as.get(j).collisionBox)) {
-					as.get(j).isActive = false;
-					ps.get(i).isActive = false;
-					}
+					//if (ps.get(i).collisionBox.intersects(as.get(j).collisionBox)) {
+					//as.get(j).isActive = false;
+					//ps.get(i).isActive = false;
+					//}
 			}
 		}
+	}
+	public int getScore() {
+		return score;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     Font titleFont1;
 	Timer frameDraw;
 	Timer alienSpawn;
-	RocketShip RS = new RocketShip(250,600,50,50);
+	RocketShip RS = new RocketShip(250,500,50,50);
 	ObjectManager OM = new ObjectManager(RS);
 	public static BufferedImage image;
 	public static boolean needImage = true;
@@ -73,18 +73,32 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
     	
     }
     public void drawGameState(Graphics g) {
+    	g.setFont(titleFont);
+    	g.setColor(Color.YELLOW);
     	if (gotImage) {
     		g.drawImage(image, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
     	} else {
     		g.setColor(Color.BLACK);
     		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
     	}
+    	
     	OM.draw(g);
+	    g.drawString(OM.getScore() + "", 50, 50);
 
     }
     public void drawEndState(Graphics g)  { 
     	g.setColor(Color.RED);
     	g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+    	g.setFont(titleFont);
+    	g.setColor(Color.YELLOW);
+    	g.drawString("GAME OVER", 60, 100);
+    	g.setFont(titleFont1);
+    	g.setColor(Color.YELLOW);
+    	g.drawString("You killed " + OM.getScore() + " enemie(s)", 120, 300);
+    	g.setFont(titleFont1);
+    	g.setFont(titleFont1);
+    	g.setColor(Color.YELLOW);
+    	g.drawString("Press ENTER to restart", 110, 425);
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -109,6 +123,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
 		        currentState = MENU;
+		        RS = new RocketShip(250,500,50,50);
+		        OM = new ObjectManager(RS);
+		        alienSpawn = new Timer(1000 , OM);
+		        
 		    } 
 		    else {
 		        currentState++;
